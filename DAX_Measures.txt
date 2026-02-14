@@ -1,0 +1,78 @@
+Total Sales (2025) = 
+CALCULATE(
+   SUM(Sales[SalesAmount]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2025, 1, 1),
+        DATE(2025, 4, 30)
+    )
+)
+SalesQTY (2025) = 
+CALCULATE(
+   SUM(Sales[SalesQuantity]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2025, 1, 1),
+        DATE(2025, 4, 30)
+    )
+)
+ReturnRate (2025) = 
+CALCULATE(
+   AVERAGE(Sales[ReturnRate]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2025, 1, 1),
+        DATE(2025, 4, 30)
+    )
+)
+Profit (2025) = 
+CALCULATE(
+    SUM(Sales[SalesAmount])-SUM(Sales[TotalCost]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2025, 1, 1),
+        DATE(2025, 4, 30)
+    )
+)
+Total Sales (2024) = 
+CALCULATE(
+    SUM(Sales[SalesAmount]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2024, 1, 1),
+        DATE(2024, 12, 31)
+    )
+)
+SalesQTY (2024 only 4 months) = 
+CALCULATE(
+   SUM(Sales[SalesQuantity]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2024, 1, 1),
+        DATE(2024, 4, 30)
+    )
+)
+ReturnRate (2024) = 
+CALCULATE(
+   AVERAGE(Sales[ReturnRate]),
+    DATESBETWEEN(
+        Sales[DateKey],
+        DATE(2024, 1, 1),
+        DATE(2024, 4, 30)
+    )
+)
+Target NEW = SWITCH(TRUE(),
+SELECTEDVALUE(Target[Year]) = "2025", 322215785.330465,
+SELECTEDVALUE(Target[Year]) = "2024", 1263574197.34684,
+SELECTEDVALUE(Target[Year]) = "2023", 1327679434.62801,
+SELECTEDVALUE(Target[Year]) = "2022", 876037673.965845)
+Monthly sales/Stock ratios = CALCULATE(SUM(Stores[SalesLast30d])/SUM(Stores[Stock]))
+Previous_months_sale = 
+CALCULATE(
+    [Store_Sales], 
+    PREVIOUSMONTH('Calendar'[DateKey].[Date]))
+Profit = 
+SUM('Sales'[SalesAmount]) - SUM('Sales'[TotalCost])
+Profit margin = Sales[ProfitNew] / Sales[SalesAmount]
+ReturnRate = Sales[ReturnAmount] / Sales[SalesAmount]
+Year sale = CALCULATE(SUM(Sales[SalesAmount]),YEAR(Sales[DateKey]))
